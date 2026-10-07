@@ -23,13 +23,20 @@ export const RecitationRoom: React.FC<RecitationRoomProps> = ({
   // Step 32: Concluding Dedication
   // Step 33: Merit Sharing
   const [currentStep, setCurrentStep] = useState(0);
+  const [isRinging, setIsRinging] = useState(false);
 
   const currentRealm: RealmItem | undefined = 
     currentStep >= 1 && currentStep <= 31 ? REALMS_DATA[currentStep - 1] : undefined;
 
+  const playChime = () => {
+    setIsRinging(true);
+    soundService.playKyeeZee();
+    setTimeout(() => setIsRinging(false), 2000);
+  };
+
   const handleNext = () => {
     if (soundEnabled) {
-      soundService.playKyeeZee();
+      playChime();
     }
     if (currentStep < 33) {
       setCurrentStep(prev => prev + 1);
@@ -46,7 +53,7 @@ export const RecitationRoom: React.FC<RecitationRoomProps> = ({
 
   const handleComplete = () => {
     if (soundEnabled) {
-      soundService.playKyeeZee();
+      playChime();
       setTimeout(() => soundService.playKyeeZee(), 1500);
       setTimeout(() => soundService.playKyeeZee(), 3000);
     }
@@ -84,11 +91,16 @@ export const RecitationRoom: React.FC<RecitationRoomProps> = ({
         </div>
 
         <button
-          onClick={() => soundService.playKyeeZee()}
-          className="text-[11px] font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 px-2.5 py-1.5 rounded-xl border border-amber-300/80 transition cursor-pointer flex items-center gap-1 shadow-2xs"
+          onClick={playChime}
+          className={`text-[11px] font-bold px-2.5 py-1.5 rounded-xl border transition cursor-pointer flex items-center gap-1 shadow-2xs ${
+            isRinging
+              ? 'bg-amber-500 text-white border-amber-600 scale-105 shadow-md'
+              : 'text-amber-900 bg-amber-50 hover:bg-amber-100 border-amber-300/80'
+          }`}
           title="ကြေးစည်သံ စမ်းသပ်တီးကြည့်ရန်"
         >
-          <span>🔔 ကြေးစည်သံ</span>
+          <span className={isRinging ? 'animate-bounce' : ''}>🔔</span>
+          <span>{isRinging ? 'မြည်နေပါသည်...' : 'ကြေးစည်သံ'}</span>
         </button>
       </div>
 
@@ -122,7 +134,8 @@ export const RecitationRoom: React.FC<RecitationRoomProps> = ({
               <p className="font-bold text-amber-900">📌 ရွတ်ဆိုပုံ ညွှန်ကြားချက် -</p>
               <ul className="list-disc list-inside space-y-1 text-stone-600">
                 <li>ငရဲဘုံမှသည် မဟာဗြဟ္မာဘုံအထိ ဘုံပေါင်း (၃၁) ဘုံအတွက် တစ်ဘုံစီအလိုက် မေတ္တသုတ် (၁) ခေါက်စီ စုစုပေါင်း (၃၁) ခေါက် ရွတ်ဆိုပါမည်။</li>
-                <li>တစ်ဘုံရွတ်ပြီးတိုင်း "ပြီးပါပြီ (နောက်တစ်ဘုံသို့)" ခလုတ်ကို နှိပ်၍ ဆက်လက်ရွတ်ဆိုနိုင်ပါသည်။</li>
+                <li>တစ်ဘုံရွတ်ပြီးတိုင်း "ပြီးပါပြီ (နောက်တစ်ဘုံသို့)" ခလုတ်ကို နှိပ်၍ ဆက်လက်ရွတ်ဆိုနိုင်ပါသည်။ ကြေးစည်သံ အလိုအလျောက် မြည်ပါမည်။</li>
+                <li className="text-amber-800 font-medium">💡 ဖုန်းတွင် အသံမထွက်ပါက ဖုန်းဘေးဘက်ရှိ Silent Switch (Mute) ကို ဖွင့်ထားခြင်း ရှိ/မရှိ စစ်ဆေးပြီး အသံ (Volume) တင်ပေးပါ။</li>
               </ul>
             </div>
 

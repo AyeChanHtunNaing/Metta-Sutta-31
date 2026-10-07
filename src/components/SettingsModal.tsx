@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, User, RefreshCw, Check } from 'lucide-react';
+import { X, User, RefreshCw, Check, Volume2 } from 'lucide-react';
 import { AdhitthanaState } from '../types';
+import { soundService } from '../services/soundService';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -19,8 +20,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
   const [name, setName] = useState(state.devoteeName);
   const [showConfirmReset, setShowConfirmReset] = useState(false);
+  const [isPlayingSound, setIsPlayingSound] = useState(false);
 
   if (!isOpen) return null;
+
+  const handleTestSound = () => {
+    setIsPlayingSound(true);
+    soundService.playKyeeZee();
+    setTimeout(() => setIsPlayingSound(false), 2000);
+  };
 
   const handleSave = () => {
     onSaveName(name);
@@ -62,8 +70,32 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </p>
           </div>
 
+          {/* Kyee-zee Sound Test & Mobile Troubleshooting */}
+          <div className="pt-3 border-t border-stone-100 space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-stone-700 flex items-center gap-1.5">
+                <Volume2 className="w-3.5 h-3.5 text-amber-600" />
+                <span>ကြေးစည်သံ စမ်းသပ်ခြင်း</span>
+              </label>
+              <button
+                type="button"
+                onClick={handleTestSound}
+                className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition flex items-center gap-1 cursor-pointer shadow-2xs ${
+                  isPlayingSound
+                    ? 'bg-amber-500 text-white border-amber-600 scale-105 shadow-md'
+                    : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-300/80'
+                }`}
+              >
+                <span>🔔 {isPlayingSound ? 'တီးခတ်နေပါသည်...' : 'အသံစမ်းရန်'}</span>
+              </button>
+            </div>
+            <p className="text-[11px] text-stone-600 leading-relaxed bg-amber-50/60 p-2.5 rounded-xl border border-amber-200/60">
+              💡 <span className="font-semibold text-amber-900">မိုဘိုင်းဖုန်း အသုံးပြုသူများအတွက်:</span> အသံမထွက်ပါက ဖုန်းဘေးဘက်ရှိ Silent Switch / Mute (တုန်ခါမှုသီးသန့် မုဒ်) ကို ဖွင့်ထားခြင်း ရှိ/မရှိ စစ်ဆေးပြီး ဖုန်း Volume အသံချဲ့ပေးပါ။
+            </p>
+          </div>
+
           {/* Reset Journey Option */}
-          <div className="pt-3 border-t border-stone-100">
+          <div className="pt-2 border-t border-stone-100">
             {!showConfirmReset ? (
               <button
                 onClick={() => setShowConfirmReset(true)}
