@@ -1,5 +1,7 @@
 # 🪷 Metta Sutta 31 (31 Realms Metta Sutta Adhitthana)
 
+[![Live Website](https://img.shields.io/badge/Live_App-metta--sutta.peacechan.dev-4ade80?style=for-the-badge&logo=safari&logoColor=black)](https://metta-sutta.peacechan.dev)
+
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -7,6 +9,8 @@
 [![Web Audio API](https://img.shields.io/badge/Audio-Web%20Audio%20API-orange)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+> 🌐 **Live Website**: [https://metta-sutta.peacechan.dev](https://metta-sutta.peacechan.dev)
+>
 > A dedicated Buddhist web application designed for the daily **Adhitthana** (solemn resolve) chanting practice of the **Metta Sutta** (Discourse on Loving-Kindness), recited 31 consecutive times to dedicate loving-kindness sequentially to all **31 Realms of Existence** (*31 Bhumi*).
 
 ---
